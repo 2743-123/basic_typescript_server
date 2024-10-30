@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 app.get('/api',(req : Request, res : Response)=>{
-console.log("vercel server is running")
+res.send("vercel server is running")
 })
 
 

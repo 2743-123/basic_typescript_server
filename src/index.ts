@@ -13,3 +13,4 @@ res.send("vercel server is running")
 app.listen(PORT,()=>{
     console.log(`server is running ${PORT}`)
 })
+export default app;

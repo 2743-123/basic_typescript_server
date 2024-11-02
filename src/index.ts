@@ -2,9 +2,18 @@ import express, { Request, Response } from "express";
 import { AppDataSource } from "./config/database"; // Adjust the path according to your structure
 import "reflect-metadata"; // Required for TypeORM decorators
 import authRoutes from "./routes/authRoutes";
+import cors from 'cors';
+
+
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors({
+  origin: 'https://basictypescriptserver.vercel.app', // Replace with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // Enable cookies or authorization headers
+}));
 
 app.use(express.json());
 

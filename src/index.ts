@@ -3,6 +3,10 @@ import { AppDataSource } from "./config/database"; // Adjust the path according 
 import "reflect-metadata"; // Required for TypeORM decorators
 import authRoutes from "./routes/authRoutes";
 import cors from 'cors';
+import { config } from 'dotenv';
+
+config()
+
 
 
 
@@ -33,7 +37,7 @@ AppDataSource.initialize()
 
 
     // Start the Express server only after a successful DB connection
-    app.listen(PORT, () => {
+    app.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
   })

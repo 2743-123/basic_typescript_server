@@ -9,6 +9,9 @@ export const AppDataSource = new DataSource({
   // url: process.env.DATABASE_URL,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || "5432"),
+  ssl: {
+    rejectUnauthorized: false  // This allows unverified SSL connections, often needed for cloud DBs.
+  },
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,

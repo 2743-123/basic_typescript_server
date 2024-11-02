@@ -1,16 +1,35 @@
-import express,{ Request,Response } from "express";
-const app = express();
+import express, { Request, Response } from "express";
+import { AppDataSource } from "./config/database"; // Adjust the path according to your structure
+import "reflect-metadata"; // Required for TypeORM decorators
+import authRoutes from "./routes/authRoutes";
 
+const app = express();
 const PORT = 3000;
 
-app.get('/api',(req : Request, res : Response)=>{
-res.send("vercel server is running")
-})
+app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
 
+// Initialize the database connection
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Database connected!");
 
+    // Start the Express server only after a successful DB connection
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database:", error);
+  });
 
-app.listen(PORT,()=>{
-    console.log(`server is running ${PORT}`)
-})
+// Sample route
+app.get("/api", (req: Request, res: Response) => {
+  res.send("Vercel server is running");
+});
+
+app.use("/api/auth", authRoutes);
+
+// Export the app for testing or further usage
 export default app;
